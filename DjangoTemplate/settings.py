@@ -39,12 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'rest_framework',
+    'bootstrap4',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'application.apps.ApplicationConfig'
+
+    'application.apps.ApplicationConfig',
+    'api.apps.ApiConfig'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +82,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 WSGI_APPLICATION = 'DjangoTemplate.wsgi.application'

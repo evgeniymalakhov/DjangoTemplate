@@ -1,18 +1,51 @@
+{% load static %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
 </head>
 <body>
-    {% if user.is_authenticated %}
-        Hi {{ user.email }}!
-        <p><a href="{% url 'account_logout' %}">Log Out</a></p>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'account_login' %}">Log In</a> |
-        <a href="{% url 'account_signup' %}">Sign Up</a>
-    {% endif %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">
+        <img src="{% static "images/icon.jpg" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        DjangoTemplate
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.email }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            {% else %}
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'account_login' %}">Log In</a>
+            {% endif %}
+        </form>
+    </div>
+</nav>
     {% block content %}{% endblock %}
 </body>
 </html>
