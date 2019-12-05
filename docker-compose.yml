@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    restart: always
+    container_name: django
+    command: uwsgi --socket mysite.sock --module DjangoTemplate.wsgi --chmod-socket=777
+    volumes:
+      - .:/app
+    expose:
+      - 8000
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./deploy/nginx
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    links:
+      - web

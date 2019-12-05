@@ -25,7 +25,7 @@ SECRET_KEY = '7q21++#yx8kb96p5$#$vpcm9mf$h9_)!!*r87c!z9+-$ki*aa3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web', 'localhost']
 
 AUTH_USER_MODEL = 'application.User'
 # Application definition
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'application.apps.ApplicationConfig',
-    'api.apps.ApiConfig'
 ]
 
 REST_FRAMEWORK = {
@@ -84,9 +83,7 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 WSGI_APPLICATION = 'DjangoTemplate.wsgi.application'
 
